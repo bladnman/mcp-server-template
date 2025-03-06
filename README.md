@@ -2,6 +2,17 @@
 
 A starting point for an MCP Server.
 
+## DUPLICATE ME
+
+The whole idea here is for you to take this for your own.
+Running this to create a new folder with your own copy
+of this template (git removed and replaced with a new one).
+
+```bash
+# replace mcp-server with name of your choice
+npx make-mine https://github.com/bladnman/mcp-server-template.git mcp-server
+```
+
 ## Features
 
 - Simple string reversal tool
