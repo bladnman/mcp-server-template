@@ -19,13 +19,18 @@ server.addResource(greetingResource);
 // Resource: Welcome
 server.addResource(welcomeResource);
 
-// Run the server using stdio when executed as main
-if (import.meta.url === `file://${process.argv[1]}`) {
+// CHECK FOR FILE EXECUTION
+// This is used to determine if the file is being executed directly
+// versus being imported from another file.
+const wasExecuted = import.meta.url === `file://${process.argv[1]}`;
+if (wasExecuted) {
   // Support both stdio transport and SSE
   const transportType = process.env.TRANSPORT_TYPE || "stdio";
 
+  //
+  // SSE
+  // Start HTTP server with SSE transport
   if (transportType === "sse") {
-    // Start HTTP server with SSE transport
     server.start({
       transportType: "sse",
       sse: {
@@ -36,12 +41,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(
       `MCP server started on HTTP port ${HTTP_PORT} with SSE transport at ${SSE_ENDPOINT} endpoint`
     );
-  } else {
-    // Start with stdio transport (default)
+  }
+
+  //
+  // STDIO
+  // Start with stdio transport (default)
+  else {
     server.start({
       transportType: "stdio",
     });
   }
-}
+} // END CHECK FOR FILE EXECUTION
 
 export default server;
